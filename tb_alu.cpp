@@ -12,7 +12,7 @@ vluint64_t sim_time = 0;
 vluint64_t posedge_cnt = 0;
 
 int main(int argc, char** argv, char** env) {
-//    Verilated::commandArgs(argc, argv);
+    Verilated::commandArgs(argc, argv);
 
     Valu *dut = new Valu;
 
