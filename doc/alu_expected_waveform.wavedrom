@@ -1,0 +1,23 @@
+{signal: [
+  {name: 'clk',           wave: 'p......'},
+  {name: 'op_in',         wave: 'xx22xxx', data: ['add','sub']},
+  {name: 'a_in',          wave: 'xx33xxx', data: ['2','4']},
+  {name: 'b_in',          wave: 'xx44xxx', data: ['3','1']},
+  {name: 'in_valid',      wave: '0.1.0..', data: ['3','1'],
+   						  node: '.......'},
+  
+  {},
+  {name: 'op_in_r',       wave: 'x..22x.', data: ['add','sub']},
+  {name: 'a_in_r',        wave: 'xxx33xx', data: ['2','4']},
+  {name: 'b_in_r',        wave: 'xxx44xx', data: ['3','1']},
+  {name: 'in_valid_r',    wave: '0..1.0.'},
+  {name: 'result',        wave: 'xxx55xx', data: ['5','3']},
+  
+  {},
+  {name: 'out',           wave: 'xxxx55x', data: ['5','3']},
+  {name: 'out_valid',     wave: '0...1.0'},
+
+], 
+  config: { hscale:2},
+  head: { text: ['tspan', {class:'info h3'}, 'ALU expected behavior'] }
+}
