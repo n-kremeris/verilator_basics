@@ -4,6 +4,7 @@ You can find beginner friendly Verilator tutorials here:
 
 *    [Verilator Tutorial Pt.1: Introduction](https://www.itsembedded.com/dhd/verilator_1/)
 *    [Verilator Tutorial Pt.2: Basics of SystemVerilog verification using C++](https://www.itsembedded.com/dhd/verilator_2/)
+*    [Verilator Tutorial Pt.3: Traditional style verification example](https://www.itsembedded.com/dhd/verilator_3/)
 
 Please visit www.itsembedded.com for more info.
 
