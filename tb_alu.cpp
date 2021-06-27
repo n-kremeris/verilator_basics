@@ -67,7 +67,31 @@ int main(int argc, char** argv, char** env) {
         if (dut->clk == 1){
             dut->in_valid = 0;
             posedge_cnt++;
-            set_rnd_out_valid(dut, sim_time);
+            switch (posedge_cnt){
+                case 10:
+                    dut->in_valid = 1;
+                    dut->a_in = 5;
+                    dut->b_in = 3;
+                    dut->op_in = Valu___024unit::operation_t::add;
+                    break;
+
+                 case 12:
+                    if (dut->out != 8)
+                        std::cout << "Addition failed @ " << sim_time << std::endl;
+                    break;
+
+                 case 20:
+                     dut->in_valid = 1;
+                     dut->a_in = 5;
+                     dut->b_in = 3;
+                     dut->op_in = Valu___024unit::operation_t::sub;
+                     break;
+
+                 case 22:
+                    if (dut->out != 2)
+                        std::cout << "Subtraction failed @ " << sim_time << std::endl;
+                    break;
+            }
             check_out_valid(dut, sim_time);
         }
 
