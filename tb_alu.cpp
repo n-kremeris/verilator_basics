@@ -178,7 +178,6 @@ int main(int argc, char** argv, char** env) {
     AluInMon  *inMon  = new AluInMon(dut, scb);
     AluOutMon *outMon = new AluOutMon(dut, scb);
 
-
     while (sim_time < MAX_SIM_TIME) {
         dut_reset(dut, sim_time);
         dut->clk ^= 1;
