@@ -36,8 +36,7 @@ class AluOutTx {
 class AluScb {
     private:
         std::deque<AluInTx*> in_q;
-        std::deque<AluOutTx*> out_q;
-
+        
     public:
         // Input interface monitor port
         void writeIn(AluInTx *tx){
@@ -106,16 +105,23 @@ class AluInDrv {
         }
 
         void drive(AluInTx *tx){
-            if (tx->op != AluInTx::nop) {
-                // If the operation is not a NOP, we drive it onto the
-                // input interface pins
-                dut->in_valid = 1;
-                dut->op_in = tx->op;
-                dut->a_in = tx->a;
-                dut->b_in = tx->b;
-            } else {
-                // If the operation is NOP, then input is not valid
-                dut->in_valid = 0;
+            // we always start with in_valid set to 0, and set it to
+            // 1 later only if necessary
+            dut->in_valid = 0;
+
+            // Don't drive anything if a transaction item doesn't exist
+            if(tx != NULL){
+                if (tx->op != AluInTx::nop) {
+                    // If the operation is not a NOP, we drive it onto the
+                    // input interface pins
+                    dut->in_valid = 1;
+                    dut->op_in = tx->op;
+                    dut->a_in = tx->a;
+                    dut->b_in = tx->b;
+                }
+                // Release the memory by deleting the tx item
+                // after it has been consumed
+                delete tx;
             }
         }
 };
@@ -147,7 +153,7 @@ class AluInMon {
         }
 };
 
-// ALU input interface monitor
+// ALU output interface monitor
 class AluOutMon {
     private:
         Valu *dut;
@@ -177,11 +183,16 @@ class AluOutMon {
 // transaction item, randomise the data, and
 // return a pointer to the transaction item object
 AluInTx* rndAluInTx(){
-    AluInTx *tx = new AluInTx();
-    tx->op = AluInTx::Operation(rand() % 3); // Our ENUM only has entries with values 0, 1, 2
-    tx->a = rand() % 11 + 10; // generate a in range 10-20
-    tx->b = rand() % 6;  // generate b in range 0-5
-    return tx;
+    //20% chance of generating a transaction
+    if(rand()%5 == 0){
+        AluInTx *tx = new AluInTx();
+        tx->op = AluInTx::Operation(rand() % 3); // Our ENUM only has entries with values 0, 1, 2
+        tx->a = rand() % 11 + 10; // generate a in range 10-20
+        tx->b = rand() % 6;  // generate b in range 0-5
+        return tx;
+    } else {
+        return NULL;
+    }
 }
 
 
@@ -208,7 +219,7 @@ int main(int argc, char** argv, char** env) {
 
     AluInTx   *tx;
 
-    // Here we 'instantiate' the driver, scoreboard, input and output monitor blocks
+    // Here we create the driver, scoreboard, input and output monitor blocks
     AluInDrv  *drv    = new AluInDrv(dut);
     AluScb    *scb    = new AluScb();
     AluInMon  *inMon  = new AluInMon(dut, scb);
@@ -221,9 +232,7 @@ int main(int argc, char** argv, char** env) {
 
         // Do all the driving/monitoring on a positive edge
         if (dut->clk == 1){
-            // the in_valid signal is always deasserted at the start of the positive edge
-            // and is reasserted by the driver if required later
-            dut->in_valid = 0;
+
             if (sim_time >= VERIF_START_TIME) {
                 // Generate a randomised transaction item of type AluInTx
                 tx = rndAluInTx();
