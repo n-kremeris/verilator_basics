@@ -1,39 +1,36 @@
 [*]
 [*] GTKWave Analyzer v3.3.109 (w)1999-2020 BSI
-[*] Sat Sep 25 18:35:08 2021
+[*] Sat Sep 25 18:51:58 2021
 [*]
 [dumpfile] "/home/toby/NO-SYNC/server_backup/verilator_basics/waveform.vcd"
-[dumpfile_mtime] "Sat Sep 25 18:34:36 2021"
-[dumpfile_size] 5999
+[dumpfile_mtime] "Sat Sep 25 18:47:21 2021"
+[dumpfile_size] 5168
 [savefile] "/home/toby/NO-SYNC/server_backup/verilator_basics/gtkwave_setup.gtkw"
 [timestart] 0
 [size] 1189 655
-[pos] -163 -187
+[pos] -1 -1
 *-6.610580 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [sst_width] 253
 [signals_width] 177
 [sst_expanded] 1
 [sst_vpaned_height] 154
-@22
-TOP.alu.WIDTH[31:0]
-TOP.alu.a_in[5:0]
-TOP.alu.a_in_r[5:0]
-TOP.alu.b_in[5:0]
-TOP.alu.b_in_r[5:0]
 @28
 TOP.alu.clk
+TOP.alu.rst
+@200
+-
+@22
+TOP.alu.a_in[5:0]
+TOP.alu.b_in[5:0]
+@28
 TOP.alu.in_valid
-TOP.alu.in_valid_r
 TOP.alu.op_in[1:0]
-TOP.alu.op_in_r[1:0]
+@200
+-
 @22
 TOP.alu.out[5:0]
 @28
 TOP.alu.out_valid
-@22
-TOP.alu.result[5:0]
-@28
-TOP.alu.rst
 [pattern_trace] 1
 [pattern_trace] 0
