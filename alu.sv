@@ -35,7 +35,7 @@ module alu #(
         // Register all inputs
         always_ff @ (posedge clk, posedge rst) begin
                 if (rst) begin
-                        op_in_r     <= '0;
+                        op_in_r     <= operation_t'(0);
                         a_in_r      <= '0;
                         b_in_r      <= '0;
                         in_valid_r  <= '0;
